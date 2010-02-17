@@ -6,6 +6,22 @@
 # This has been tested on Ubunut 9.04, and I realize it could be improved. Please  #
 # contribute. :-)                                                                  #
 #                                                                                  #
+# Notes:                                                                           #
+#                                                                                  #
+# For simplicity, all our shards will run on localhost, but on a different port.   #
+# Take a look at PORT below to define the start port (of the first shard).         #
+#                                                                                  #
+# In the end, this script will leave you with "local-PORT.ini" files which are the #
+# configuration files to each chart and a "nodelist" file, which contains some-    #
+# thing like:                                                                      #
+#  localhost PORT1                                                                 #
+#  localhost PORT2                                                                 #
+#  localhost PORT3                                                                 #
+#                                                                                  #
+# Use the "nodelist" file with update_shard_map.py.                                #
+#                                                                                  #
+# Move the local.ini files to your /etc/couchdb/ directory.                        #
+#                                                                                  #
 ####################################################################################
 #                                                                                  #
 # Author:  Till Klampaeckel                                                        #
@@ -61,6 +77,8 @@ conf=`cat ./local.ini-tpl`
 
 #echo "$conf";
 
+nodelist=""
+
 for (( i=1; i<=$NUMSERVERS; i++ ))
 do
 
@@ -88,8 +106,20 @@ do
     init_cmd="${init_cmd} ${COUCHDB_USER}"
 
     echo "${init_cmd}"
+    echo ""
+
+
+    nodelist="${nodelist}localhost ${shard_port}"$'\n'
 
 done
 
-echo "Done creating ${NUMSERVERS} config files."
+save_file "nodelist" "${nodelist}"
+
+echo "Done!"
+echo ""
+
+echo "Created in `pwd`:"
+echo " * nodelist (for update_shard_map.py)"
+echo " * ${NUMSERVERS} local-*.ini's"
+echo ""
 exit 0;
