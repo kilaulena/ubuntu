@@ -26,7 +26,7 @@ export APACHE_MIRROR=http://apache.easy-webs.de/couchdb
 export COUCHDB_VERSION=0.10.0
 export COUCHDB_USER=root
 export EBS_VOL=/couchdb
-export INSTALL_YES_NO=no
+export INSTALL_YES_NO=yes
 
 # include shared functions
 source ./../functions
