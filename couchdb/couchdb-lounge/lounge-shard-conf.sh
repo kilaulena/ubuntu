@@ -102,7 +102,7 @@ do
     save_file "local-${shard_port}.ini" "$local_config"
 
     if [ $INSTALL_YES_NO -eq "yes" ]; then
-        cp local-*.ini $COUCHDB_EBS/etc/couchdb/
+        cp ${WORKING}/local-*.ini $COUCHDB_EBS/etc/couchdb/
     fi
 
     nodelist="${nodelist}localhost ${shard_port}"$'\n'
