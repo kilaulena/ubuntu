@@ -43,7 +43,7 @@ HTTPAUTHSECRET="this should be adjusted"
 # We'll start at this port
 PORT=5984
 
-CHROOT=/
+CHROOT=/couchdb/
 
 WORKING="`pwd`/work"
 
@@ -103,7 +103,7 @@ do
 
     save_file "local-${shard_port}.ini" "$local_config"
 
-    if [ $INSTALL_YES_NO -eq "yes" ]; then
+    if [ $INSTALL_YES_NO = "yes" ]; then
         cp ${WORKING}/local-*.ini $COUCHDB_EBS/etc/couchdb/
         mkdir -p $db_dir
     fi
