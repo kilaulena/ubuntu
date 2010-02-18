@@ -8,7 +8,7 @@ start_lounge () {
 
         init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
         init_cmd="${init_cmd} -c ${file}"
-        init_cmd="${init_cmd} -b -r 5"
+        init_cmd="${init_cmd} -b "
         init_cmd="${init_cmd} -p ${pid_file}"
         init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
         init_cmd="${init_cmd} ${COUCHDB_USER}"
@@ -22,7 +22,7 @@ stop_lounge () {
 
         stop_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
         stop_cmd="${stop_cmd} -c ${file}"
-        stop_cmd="${stop_cmd} -b -r 5"
+        stop_cmd="${stop_cmd} -b "
         stop_cmd="${stop_cmd} -p ${pid_file}"
         stop_cmd="${stop_cmd} -o /dev/null -e /dev/null'"
         stop_cmd="${stop_cmd} -d"
