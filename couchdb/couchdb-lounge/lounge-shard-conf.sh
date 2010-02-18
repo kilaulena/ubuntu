@@ -20,7 +20,8 @@
 #                                                                                  #
 # Use the "nodelist" file with update_shard_map.py.                                #
 #                                                                                  #
-# Move the local.ini files to your $COUCHDB_EBS/etc/couchdb/ directory.            #
+# If INSTALL_YES_NO=yes, the local.ini files will be copied                        #
+# to your $COUCHDB_EBS/etc/couchdb/ directory.                                     #
 #                                                                                  #
 ####################################################################################
 #                                                                                  #
@@ -55,6 +56,8 @@ COUCHDB_EBS=${CHROOT}couchdb
 
 # this is the user to run couchdb with
 COUCHDB_USER=root
+
+INSTALL_YES_NO=yes
 
 ## Don't edit below.
 
@@ -98,18 +101,9 @@ do
 
     save_file "local-${shard_port}.ini" "$local_config"
 
-    #create "{$db_dir}" "${log_file}" "${pid_file}"
-
-    #init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
-    #init_cmd="${init_cmd} -c ${COUCHDB_EBS}etc/couchdb/local-${shard_port}.ini"
-    #init_cmd="${init_cmd} -b "
-    #init_cmd="${init_cmd} -p ${pid_file}"
-    #init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
-    #init_cmd="${init_cmd} ${COUCHDB_USER}"
-
-    #echo "${init_cmd}"
-    #echo ""
-
+    if [ $INSTALL_YES_NO -eq "yes" ]; then
+        cp local-*.ini $COUCHDB_EBS/etc/couchdb/
+    fi
 
     nodelist="${nodelist}localhost ${shard_port}"$'\n'
 
