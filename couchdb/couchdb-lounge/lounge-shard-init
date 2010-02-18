@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COUCHDB_EBS=/couchdb
+COUCHDB_EBS=/couchdb/
 COUCHDB_USER=root
 
 start_lounge () {
