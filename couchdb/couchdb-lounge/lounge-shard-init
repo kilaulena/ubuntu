@@ -2,6 +2,7 @@
 
 COUCHDB_EBS=/couchdb/couchdb/
 COUCHDB_USER=root
+COUCHDB_OPTS=" -r 5  -o /dev/null -e /dev/null"
 
 build_pid () {
     local conf=$1
@@ -25,7 +26,7 @@ start_lounge () {
         init_cmd="${init_cmd} -a ${file}"
         init_cmd="${init_cmd} -b "
         init_cmd="${init_cmd} -p ${pid_file}"
-        init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
+        init_cmd="${init_cmd} ${COUCHDB_OPTS}"
         init_cmd="${init_cmd} ${COUCHDB_USER}"
 
         echo $init_cmd;
@@ -39,7 +40,7 @@ stop_lounge () {
         stop_cmd="${stop_cmd} -a ${file}"
         stop_cmd="${stop_cmd} -b "
         stop_cmd="${stop_cmd} -p ${pid_file}"
-        stop_cmd="${stop_cmd} -o /dev/null -e /dev/null'"
+        stop_cmd="${stop_cmd} ${COUCHDB_OPTS}"
         stop_cmd="${stop_cmd} -d"
         stop_cmd="${stop_cmd} ${COUCHDB_USER}"
 
