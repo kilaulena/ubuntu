@@ -105,6 +105,7 @@ do
 
     if [ $INSTALL_YES_NO -eq "yes" ]; then
         cp ${WORKING}/local-*.ini $COUCHDB_EBS/etc/couchdb/
+        mkdir -p $db_dir
     fi
 
     nodelist="${nodelist}localhost ${shard_port}"$'\n'
