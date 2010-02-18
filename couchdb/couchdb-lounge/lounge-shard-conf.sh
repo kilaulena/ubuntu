@@ -57,7 +57,7 @@ COUCHDB_EBS=${CHROOT}couchdb
 # this is the user to run couchdb with
 COUCHDB_USER=root
 
-export INSTALL_YES_NO=yes
+INSTALL_YES_NO="yes"
 
 ## Don't edit below.
 
