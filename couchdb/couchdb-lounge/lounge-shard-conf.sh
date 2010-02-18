@@ -20,7 +20,7 @@
 #                                                                                  #
 # Use the "nodelist" file with update_shard_map.py.                                #
 #                                                                                  #
-# Move the local.ini files to your /etc/couchdb/ directory.                        #
+# Move the local.ini files to your $COUCHDB_EBS/etc/couchdb/ directory.            #
 #                                                                                  #
 ####################################################################################
 #                                                                                  #
@@ -42,6 +42,8 @@ PORT=5984
 
 CHROOT=/
 
+WORKING="`pwd`/work"
+
 # this is the ebs volume we log to
 LOG_EBS=${CHROOT}logs
 
@@ -59,7 +61,7 @@ COUCHDB_USER=root
 NUMSERVERS=$1
 
 function save_file {
-    `echo "$2" >> ./$1`
+    `echo "$2" >> $WORKING/$1`
 }
 
 function create {
@@ -75,9 +77,9 @@ fi
 
 conf=`cat ./local.ini-tpl`
 
-#echo "$conf";
-
 nodelist=""
+
+mkdir -p $WORKING;
 
 for (( i=1; i<=$NUMSERVERS; i++ ))
 do
@@ -98,15 +100,15 @@ do
 
     #create "{$db_dir}" "${log_file}" "${pid_file}"
 
-    init_cmd="sudo su -c'/usr/bin/couchdb"
-    init_cmd="${init_cmd} -c ${COUCHDB_EBS}/etc/couchdb/local-${shard_port}.ini"
-    init_cmd="${init_cmd} -b"
-    init_cmd="${init_cmd} -p ${pid_file}"
-    init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
-    init_cmd="${init_cmd} ${COUCHDB_USER}"
+    #init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
+    #init_cmd="${init_cmd} -c ${COUCHDB_EBS}etc/couchdb/local-${shard_port}.ini"
+    #init_cmd="${init_cmd} -b "
+    #init_cmd="${init_cmd} -p ${pid_file}"
+    #init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
+    #init_cmd="${init_cmd} ${COUCHDB_USER}"
 
-    echo "${init_cmd}"
-    echo ""
+    #echo "${init_cmd}"
+    #echo ""
 
 
     nodelist="${nodelist}localhost ${shard_port}"$'\n'
@@ -118,7 +120,7 @@ save_file "nodelist" "${nodelist}"
 echo "Done!"
 echo ""
 
-echo "Created in `pwd`:"
+echo "Created in ${WORKING}:"
 echo " * nodelist (for update_shard_map.py)"
 echo " * ${NUMSERVERS} local-*.ini's"
 echo ""
