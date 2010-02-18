@@ -23,6 +23,8 @@
 # If INSTALL_YES_NO=yes, the local.ini files will be copied                        #
 # to your $COUCHDB_EBS/etc/couchdb/ directory.                                     #
 #                                                                                  #
+# All files will be in ./work.                                                     #
+#                                                                                  #
 ####################################################################################
 #                                                                                  #
 # Author:  Till Klampaeckel                                                        #
